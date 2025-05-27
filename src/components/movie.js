@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import moment from "moment";
+import { useParams } from "react-router-dom";
 
 const Movie = (props) => {
 	const [movie, setMovie] = useState({
@@ -16,6 +17,7 @@ const Movie = (props) => {
 		rated: "",
 		reviews: [],
 	});
+	const params = useParams();
 
 	const getMovie = (id) => {
 		MovieDataService.get(id)
@@ -32,8 +34,10 @@ const Movie = (props) => {
 	};
 
 	useEffect(() => {
-		getMovie(props.match.params.id);
-	}, [props.match.params.id]);
+		// getMovie(props.match.params.id);
+		getMovie(params.id);
+		// }, [props.match.params.id]);
+	}, [params.id]);
 
 	const deleteReview = (reviewId, index) => {
 		MovieDataService.deleteReview(reviewId, props.user.id)
@@ -68,8 +72,10 @@ const Movie = (props) => {
 							<Card.Body>
 								<Card.Text>{movie.plot}</Card.Text>
 
+								{/* {props.user && ( */}
+								{/* <Link to={"/movies/" + props.match.params.id + "/review"}> */}
 								{props.user && (
-									<Link to={"/movies/" + props.match.params.id + "/review"}>
+									<Link to={"/movies/" + params.id + "/review"}>
 										Add Review
 									</Link>
 								)}
@@ -98,7 +104,8 @@ const Movie = (props) => {
 													<Link
 														to={{
 															pathname:
-																"/movies/" + props.match.params.id + "/review",
+																// "/movies/" + props.match.params.id + "/review",
+																"/movies/" + params.id + "/review",
 
 															state: { currentReview: review },
 														}}

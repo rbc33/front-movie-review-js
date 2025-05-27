@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const Login = (props) => {
 	const [name, setName] = useState("");
 	const [id, setId] = useState("");
+	const history = useHistory();
 
 	const login = () => {
 		props.login({ name: name, id: id });
-		props.history.push("/");
+		// props.history.push("/");
+		history.push("/");
 	};
 
 	const onChangeName = (e) => {
